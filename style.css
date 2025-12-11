@@ -1,0 +1,106 @@
+/* ============================
+       RESET & GLOBAL
+============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, rgb(1, 15, 214), #320053);
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ============================
+        PARTIKEL BACKGROUND
+============================ */
+canvas#particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ============================
+        CONTAINER & TITLE
+============================ */
+.container {
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.judul {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+/* ============================
+            LIST TESTIMONI
+============================ */
+.list-testimoni {
+    height: 80vh;
+    overflow-y: auto;
+    padding-right: 5px;
+    scroll-behavior: smooth;
+}
+
+/* ============================
+              CARD
+============================ */
+.card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    transition: transform .2s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card img {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.card p {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* ============================
+           MOBILE FIX
+============================ */
+@media (max-width: 480px) {
+    .judul {
+        font-size: 1.5rem;
+    }
+
+    .card p {
+        font-size: 13px;
+    }
+}
+
+* {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

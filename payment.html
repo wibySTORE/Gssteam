@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Qris Gss Team</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<script>
+
+// script pop up
+
+function belumBayar() {
+    document.getElementById("popupBayar").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popupBayar").style.display = "none";
+}
+
+        /* ======================================= */
+        /*  PROTEKSI PENUH ANTI DOWNLOAD GAMBAR    */
+        /* ======================================= */
+
+        // Disable klik kanan khusus gambar
+        document.addEventListener("contextmenu", function (e) {
+            if (e.target.tagName === "IMG") e.preventDefault();
+        });
+
+        // Disable drag gambar
+        document.addEventListener("dragstart", function (e) {
+            if (e.target.tagName === "IMG") e.preventDefault();
+        });
+
+        // Disable klik-tahan HP (touch hold)
+        document.addEventListener("touchstart", function (e) {
+            if (e.target.tagName === "IMG") e.preventDefault();
+        }, { passive: false });
+
+        // Disable F12, CTRL+U, CTRL+S, CTRL+SHIFT+I dll
+        document.onkeydown = function (e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 67) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
+            if (e.ctrlKey && e.keyCode == 85) return false;
+            if (e.ctrlKey && e.keyCode == 83) return false;
+        };
+
+// Disable klik kanan
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Disable tombol Inspect Element
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) return false; // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // CTRL+U
+        if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) return false; // CTRL+S
+    };
+
+    // Anti drag gambar
+    document.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    });
+
+
+ // Anti Inspect Element
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+      if (e.keyCode == 123) return false; // F12
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false; // Ctrl+Shift+I/J
+      if (e.ctrlKey && e.keyCode == 85) return false; // Ctrl+U
+      if (e.ctrlKey && e.keyCode == 83) return false; // Ctrl+S
+    };
+
+    // Mencegah Inspect lewat console
+    (function() {
+      const element = new Image();
+      Object.defineProperty(element, 'id', {
+        get: function() {
+          alert('⚠️ Inspect Element Tidak Diperbolehkan!');
+          throw new Error("DevTools blocked");
+        }
+      });
+      console.log(element);
+    })();
+
+</script>
+
+
+<style>
+
+/* ============================= */
+/* RESET & UMUM */
+/* ============================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Latar belakang canvas */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0a0a0a;
+    color: white;
+}
+
+/* ============================= */
+/* CONTAINER UTAMA */
+/* ============================= */
+
+.container {
+    max-width: 450px;
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ============================= */
+/* TEKS */
+/* ============================= */
+
+.judul {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.text p {
+    color: #cccccc;
+    line-height: 1.4;
+    margin: 4px 0;
+}
+
+/* ============================= */
+/* GAMBAR */
+/* ============================= */
+
+.center-image {
+    width: 80%;
+    max-width: 260px;
+    margin: 20px auto;
+    display: block;
+    pointer-events: none;
+}
+
+/* ============================= */
+/* BUTTON WHATSAPP */
+/* ============================= */
+
+.whatsapp-button {
+    background: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.whatsapp-button:hover {
+    background: #1eb255;
+}
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+.register-link {
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (min-width: 768px) {
+    .judul {
+        font-size: 32px;
+    }
+
+    .center-image {
+        max-width: 300px;
+    }
+
+    .whatsapp-button {
+        font-size: 20px;
+    }
+}
+
+
+.popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-box {
+    background: #1a1a1a;
+    padding: 20px;
+    width: 80%;
+    max-width: 350px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.popup-box h3 {
+    margin-bottom: 10px;
+}
+
+.close-btn {
+    background: #25D366;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+
+
+</style>
+
+<body>
+    
+<!-- pop up -->
+
+<div id="popupBayar" class="popup">
+  <div class="popup-box">
+    <h3>⚠️ Pembayaran Belum Terdeteksi</h3>
+    <p>Silahkan lakukan pembayaran terlebih dahulu untuk melanjutkan!</p>
+    <button onclick="closePopup()" class="close-btn">OK, Mengerti</button>
+  </div>
+</div>
+
+    
+</body>
+
+
+<body>
+
+    
+    <canvas id="particles"></canvas>
+
+    <div class="container">
+
+        <div class="text top-text">
+            <h2 class="judul">SILAHKAN DI BAYAR</h2>
+            <p>QRIS ALL PAYMENT</p>
+        </div>
+
+        <img src="img/QRIS.png" alt="QRIS" class="center-image">
+
+        <div class="text bottom-text">
+            <p>Masukkan jumlah sesuai harga yang dipesan.</p>
+            <p>Kemudian kirim bukti pembayaran ke WhatsApp kami.</p>
+        </div>
+
+        
+            <button class="whatsapp-button" onclick="belumBayar()">Setelah Sudah Bayar Nanti Bisa Di Click</button>
+
+        </a>
+
+        <div class="register-link">
+            <p>GAMES SPEED SHOP</p>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
