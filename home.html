@@ -246,66 +246,53 @@
 
   <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const audio = document.getElementById("bg-audio");
+  // Fungsi tombol OKE MIN
+  function playMusic() {
+      const audio = document.getElementById("bg-audio");
 
-        // Buat event play setelah user berinteraksi
-        function enableAudio() {
-            audio.play().catch(() => {});
-            document.removeEventListener("click", enableAudio);
-        }
+      // Tutup popup dulu
+      document.getElementById("sound-popup").style.display = "none";
 
-        document.addEventListener("click", enableAudio);
-
-        // Trik percepat autoplay
-        setTimeout(() => {
-            audio.play().catch(() => {});
-        }, 500);
-    });
-
-    // Partikel efek
-    const particlesContainer = document.getElementById("particles");
-    for (let i = 0; i < 40; i++) {
-      let particle = document.createElement("div");
-      particle.classList.add("particle");
-      particle.style.left = Math.random() * 100 + "vw";
-      particle.style.animationDuration = (5 + Math.random() * 5) + "s";
-      particle.style.opacity = Math.random();
-      particle.style.background = Math.random() > 0.5 ? "rgba(#320053)" : "rgba(255,255,255,0.6)";
-      particlesContainer.appendChild(particle);
-    }
-
-
-    // Anti Inspect Element
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function(e) {
-      if (e.keyCode == 123) return false; // F12
-      if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false; // Ctrl+Shift+I/J
-      if (e.ctrlKey && e.keyCode == 85) return false; // Ctrl+U
-      if (e.ctrlKey && e.keyCode == 83) return false; // Ctrl+S
-    };
-
-    // Mencegah Inspect lewat console
-    (function() {
-      const element = new Image();
-      Object.defineProperty(element, 'id', {
-        get: function() {
-          alert('⚠️ Inspect Element Tidak Diperbolehkan!');
-          throw new Error("DevTools blocked");
-        }
+      // Coba play audio (mobile sering block autoplay)
+      audio.volume = 1.0;
+      audio.play().catch(() => {
+          console.log("Audio diblokir browser, tidak masalah.");
       });
-      console.log(element);
-    })();
+  }
 
-function playMusic() {
-    const audio = document.getElementById("bg-audio");
-    audio.volume = 1.0;
-    audio.play()
-      .then(() => {
-        document.getElementById("sound-popup").style.display = "none";
-      })
-      .catch(err => console.log(err));
-}
+  // Partikel efek
+  const particlesContainer = document.getElementById("particles");
+  for (let i = 0; i < 40; i++) {
+    let particle = document.createElement("div");
+    particle.classList.add("particle");
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.animationDuration = (5 + Math.random() * 5) + "s";
+    particle.style.opacity = Math.random();
+    particle.style.background = Math.random() > 0.5 ? "rgba(111, 0, 255, 0.8)" : "rgba(255,255,255,0.6)";
+    particlesContainer.appendChild(particle);
+  }
+
+  // Anti Inspect Element
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.onkeydown = function(e) {
+    if (e.keyCode == 123) return false; // F12
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false; // Ctrl+Shift+I/J
+    if (e.ctrlKey && e.keyCode == 85) return false; // Ctrl+U
+    if (e.ctrlKey && e.keyCode == 83) return false; // Ctrl+S
+  };
+
+  // Mencegah Inspect via console
+  (function() {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+      get: function() {
+        alert('⚠️ Inspect Element Tidak Diperbolehkan!');
+        throw new Error("DevTools blocked");
+      }
+    });
+    console.log(element);
+  })();
+
 
 
   </script>
